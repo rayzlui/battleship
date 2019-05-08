@@ -4,7 +4,7 @@ import {PlaceShipsBoard} from './boards_module'
 
 
 const shipoptions = ["battleship", "cruiser", "carrier", "destroyer", "submarine"]
-const imageurls = ["batt","crui", "carr","des", "sub"]
+const imageurls = {battleship: "batt", cruiser: "crui", carrier: "carr", destroyer: "des",  submarine: "sub"}
 
 function createShip(ship){
     let length
@@ -12,23 +12,23 @@ function createShip(ship){
     switch (ship){
       case "battleship":
         length = 4
-        image = imageurls[0]
+        image = imageurls.battleship
         break;
       case "submarine":
         length = 3;
-        image = imageurls[4]
+        image = imageurls.submarine
         break;
       case "destroyer":
         length = 3
-        image = imageurls[3]
+        image = imageurls.destroyer
         break;
       case "cruiser":
         length = 2
-        image = imageurls[1]
+        image = imageurls.cruiser
         break;
       case "carrier":
         length = 5
-        image = imageurls[2]
+        image = imageurls.carrier
         break;
       default:
       break;
@@ -58,17 +58,16 @@ function placeShips(options){
 
 function unplacedShips(player){
   var copyships = shipoptions.slice()
-  var copyshipurls = imageurls.slice()
   //this determines which ships have not been placed on board yet.
+  
   for (var i = 0 ; i < player.ships.length; i++){
       var index = copyships.indexOf(player.ships[i].name)
       if (index !== -1){
           copyships.splice(index,1)
-          copyshipurls.splice(index,1)
 
       }
   }
-  return [copyships,copyshipurls]
+  return copyships
 }
 
 function shipDom(options){
@@ -80,10 +79,9 @@ function shipDom(options){
 function setupShipPlacementBoard(options){
   var emptyboard = options.state.currentPlayer.board.allgrids
   let vertical
-  var copyships = unplacedShips(options.state.currentPlayer)[0]
-  var copyshipurls = unplacedShips(options.state.currentPlayer)[1]
+  var ships = unplacedShips(options.state.currentPlayer)
 
-  var shipOptions = copyships.map(x=>shipDom({ship: x, image: copyshipurls[copyships.indexOf(x)], selectShip: options.selectShip}))
+  var shipOptions = ships.map(ship=>shipDom({ship: ship, image: imageurls[ship], selectShip: options.selectShip}))
 
   if (options.vertical === true){
     vertical = "Horizontalize Placement"

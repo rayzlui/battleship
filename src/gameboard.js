@@ -15,14 +15,14 @@ class Gameboard extends React.Component{
     }
 
     receiveAttack(id){
-        if (this.props.receiveAttack !== null){
+        if (this.props.receiveAttack){
             this.props.receiveAttack(id)
         }
     }
 
     renderBoard(){
         let display = []
-        let x=0
+        let x = 0
         var row = []
         let element
         for (var i = 0; i < this.props.value.length; i++){
@@ -30,18 +30,20 @@ class Gameboard extends React.Component{
 
             if (this.props.placedships === false){
                 element = <Grid key = {i} id = {i} value = {grid} selectGridForShip = {this.selectGridForShip} placedships = {this.props.placedships}/>
-                row.push(element)
+                
             }else{
                 if (this.props.isOwnBoard === true){
                     element = <Grid key = {i} id = {i} value = {grid} isOwnBoard = {this.props.isOwnBoard}/>
-                    row.push(element)
+                    
                     //display with ships aka user board
                 }else{
                     element = <Grid key = {i} id = {i} value = {grid} isOwnBoard = {this.props.isOwnBoard} receiveAttack = {this.receiveAttack}/>
-                    row.push(element)
+                    
                     //display without ships, aka board to attack with
                 } 
+                
             }
+            row.push(element)
             if (row.length === 9){
                 display.push(<li key = {x}>{row}</li>)
                 x+=1
