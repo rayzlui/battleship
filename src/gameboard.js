@@ -1,5 +1,5 @@
 import React from 'react';
-import Grid from './grid'
+import {Grid} from './grid'
 
 class Gameboard extends React.Component{
     constructor(props){
@@ -19,7 +19,7 @@ class Gameboard extends React.Component{
             this.props.receiveAttack(id)
         }
     }
-
+ 
     renderBoard(){
         let display = []
         let x = 0

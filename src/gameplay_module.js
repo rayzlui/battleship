@@ -1,16 +1,15 @@
 function registerAttack(options){
     var player = options.receiver
-    var userBoard = player.board.allgrids[options.target]
-    userBoard.hit = true
-    if (userBoard.ship !== null){
-    
+    var grid = player.board.allgrids[options.target]
+    grid.hit = true
+    if (grid.ship !== null){
         if (options.computer===true){
             options.attacker.targetHit = options.target
         }
-        userBoard.ship.shipHit()
-        userBoard.ship.isSunk()
-        if (userBoard.ship.sunk){
-            (options.computer===true) ? alert("Your "  + userBoard.ship.name + "'s HAS SUNK!") : alert(player.name +" " + userBoard.ship.name + "'s ' HAS SUNK!")       
+        grid.ship.shipHit()
+        grid.ship.isSunk()
+        if (grid.ship.sunk){
+            (options.computer===true) ? alert("Your "  + grid.ship.name + "'s HAS SUNK!") : alert(player.name +" " + grid.ship.name + "'s ' HAS SUNK!")       
             
         }
     }
@@ -67,7 +66,6 @@ function horizontalcheck(options){
     }
 
     //this checks if we go off the edge of the map
-
     if ((id + ship.length-1) > upperbound){
         return false
     }
@@ -84,7 +82,6 @@ function verticalcheck(options){
     for (var i = 0; i < ship.length; i++){
         //since it's vertical we're going by 9's aka row size.
         var x = i * 9
-
         if ((id + x > 80) || player.board.allgrids[id + x].ship !== null){
             //checking if each part of the ship going vertical either falls off the board or the grid already has a ship on it.
             return false
