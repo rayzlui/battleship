@@ -5,17 +5,20 @@ class PlaceShipsBoard extends React.Component{
 
     render(){  
         var click = null
+        var selectedship = null
         if (this.props.selectedship){
             click = this.props.selectGridForShip
+            selectedship = <h4>{`You have selected ${this.props.selectedship.name}`}</h4>
         }
         return(
         <div className = "place-ships-board" style = {{display: "inline"}}>
             <h2>{this.props.name + " Place Your Ships"}</h2>
-            <div>
+            {selectedship}
+            <div id = "place-ship-board">
                 <Gameboard value = {this.props.emptyboard} selectGridForShip = {click} placedships = {false}/>
             </div>
-            <div style = {{display: "grid"}}>
-                <button onClick = {this.props.verticalize}>{this.props.vertical}</button>
+            <div id = "place-ship-options"style = {{display: "grid"}}>
+                <button id = "vertical-button" onClick = {this.props.verticalize}>{this.props.vertical}</button>
                 {this.props.options}
             </div>
         </div>

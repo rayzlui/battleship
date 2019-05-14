@@ -65,7 +65,6 @@
             var mockFunc = jest.fn()
             var wrapper = shallow(shipDom({ship:"MESC", image: "fake", selectShip: mockFunc}))
             wrapper.simulate('click')
-            console.log(wrapper.props())
             expect(mockFunc).toHaveBeenCalled()
             var data = wrapper.props()
             expect(data.id).toEqual("MESC")
