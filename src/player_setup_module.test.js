@@ -1,5 +1,6 @@
  import {findGridForCompShipPlacement} from './player_setup_module'
-
+//testing player creator is redunant, the computer creators are loops that 
+//generate random numbers that ultimately rely on findGridForCompShipPlacement
 
  describe("findGridForCompShipPlacement", () => {
     it("should keep running until it has placed all ships", () => {
@@ -17,4 +18,4 @@
         findGridForCompShipPlacement({selectGridForShip: mockFunc})
         expect(mockFunc).toHaveBeenCalledTimes(5)
     })
- })
+ }) 

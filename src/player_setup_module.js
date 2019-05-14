@@ -26,17 +26,16 @@ function setupComputer(options){
 function placeShipsForComp(options){
     for (var j = 0; j < shipoptions.length;j ++){
    
-        let spot = Math.floor(Math.random()*80)
         let vertical = Math.random() > 0.5? true : false
         //essentially a coinflip for if it's vertical or not
         var ship = createShip(shipoptions[j])
         
-        findGridForCompShipPlacement({selectGridForShip: options.selectGridForShip, spot:spot, vertical:vertical, ship:ship, computer: options.computer})
+        findGridForCompShipPlacement({selectGridForShip: options.selectGridForShip, vertical:vertical, ship:ship, computer: options.computer})
     }
 }
 
 function findGridForCompShipPlacement(options){
-    var spot = options.spot
+    var spot = Math.floor(Math.random()*80)
     while (!options.selectGridForShip(spot, options.vertical, options.ship, options.computer)) {
        
         //if the computer unable to place a ship at the spot it first randomly got

@@ -6,7 +6,7 @@ import {GameModeBoard} from './boards_module'
 import {IntroPage, GameOverHeader, StartNextRoundButton} from './dom_stuff'
 import './App.css'; 
 
-
+ 
 class App extends React.Component{
 
   
@@ -129,8 +129,7 @@ class App extends React.Component{
     this.setState({nextturn: false})  
   }
 
-  render(){
-
+  generateDisplay(){
     let display
     if (this.state.gamestart === false){
 
@@ -172,6 +171,12 @@ class App extends React.Component{
           />
         </div>
     }
+    return display
+  }
+
+  render(){
+
+    var display = this.generateDisplay.bind(this)()
 
     return(
       <div className = "gameContainer" style = {{textAlign: "center", display: "inline-block"}}>
