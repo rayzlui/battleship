@@ -19,26 +19,20 @@ class App extends React.Component{
       placedships: false,
       gameover: false,
       postAttack: false,
-      selectedship: null,
-      vertical: false,
-      explosion: false,
       nextturn: false
-      //if we're placing ships, when a ship a clicked it will change this selectedship to specified ship
-      //and when its clicked on a grid it'll log those grids with selected ship and change back to null
+  
     }
 
     this.startOnePlayer = this.startOnePlayer.bind(this)
     this.startTwoPlayer = this.startTwoPlayer.bind(this)
     this.selectGridForShip = this.selectGridForShip.bind(this)
     this.receiveAttack = this.receiveAttack.bind(this)
-    this.verticalize = this.verticalize.bind(this)
-    this.selectShip = this.selectShip.bind(this)
   }
 
   
 
   startOnePlayer(){
-    var player = setupPlayers("you")
+    var player = setupPlayers("1")
     var computer = setupComputer({selectGridForShip: this.selectGridForShip})
     this.setState({currentPlayer: player, nextPlayer: computer, gamestart: true})
   }
@@ -52,15 +46,18 @@ class App extends React.Component{
 
  
   
-  selectGridForShip(id, vertical = this.state.vertical, ship = this.state.selectedship, player = this.state.currentPlayer){
+  selectGridForShip(id, vertical, ship, player = this.state.currentPlayer){
+
+    //consider splitting up this function and having it return the correct setState and set the computer function to have something "truthy" returned vs a boolean
+    
   
     var legalPlacement = vertical? verticalcheck({id: id, ship: ship, player: player} ) : horizontalcheck({id: id, ship: ship, player: player})
    
     if (legalPlacement){
       
       player = placeShips({player: player, vertical: vertical, ship: ship, id: id})
-
-      this.setState({currentPlayer: player, selectedship: null})
+      //this setState updates the board to display where the ship was placed.
+      this.setState({currentPlayer: player})
 
       if (player.ships.length === 5 && !player.computer){
   
@@ -114,16 +111,7 @@ class App extends React.Component{
   }
 
 
-  selectShip(ship){
-    //we could seperate these two, but the only time we need to use selected ship is during the place ship phase. 
-    //so in this situation we just create ship and set it for placement at the same time.
-    var newship = createShip(ship)
-    this.setState({selectedship: newship})
-  }
-
-  verticalize(){
-    this.setState({vertical: !this.state.vertical})
-  }
+  
 
   startTurn(){  
     this.setState({nextturn: false})  
@@ -141,7 +129,7 @@ class App extends React.Component{
 
     }else if (this.state.placedships === false){
 
-      display = setupShipPlacementBoard({selectedship: this.state.selectedship, verticalize: this.verticalize, vertical: this.state.vertical, state:this.state, selectShip: this.selectShip, selectGridForShip: this.selectGridForShip })
+      display = setupShipPlacementBoard({state:this.state, selectGridForShip: this.selectGridForShip })
   
     }else{
 

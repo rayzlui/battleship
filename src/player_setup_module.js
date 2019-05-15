@@ -5,7 +5,7 @@ import Board from './board'
 
 
 function setupPlayers(num){
-    var name = prompt(`What is player ${num}'s name`)
+    var name = `Player ${num}`
     var player = new Player({name: name, computer: false})
     var board = new Board({player: player})
     player.board = board

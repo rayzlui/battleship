@@ -68,31 +68,26 @@ function unplacedShips(player){
       }
   }
   return copyships
-}
+} 
 
 function shipDom(options){
   return <img key = {options.ship} id = {options.ship} src = {options.image} alt = {options.ship} onClick ={()=>options.selectShip(options.ship)}/>
 }
 
+function generateShipOptions(options){
+  var ships = unplacedShips(options.currentPlayer)
+  var shipOptions = ships.map(ship=>shipDom({ship: ship, image: imageurls[ship], selectShip: options.selectShip}))
+  
+  return shipOptions
+
+}
 
 
 function setupShipPlacementBoard(options){
-  var emptyboard = options.state.currentPlayer.board.allgrids
-  let vertical
-  var ships = unplacedShips(options.state.currentPlayer)
-
-  var shipOptions = ships.map(ship=>shipDom({ship: ship, image: imageurls[ship], selectShip: options.selectShip}))
-
-  if (options.vertical === true){
-    vertical = "Horizontalize Placement"
-  }else{
-    vertical = "Verticalize Placement"
-  }
-
-  var display = <PlaceShipsBoard selectedship = {options.selectedship} verticalize = {options.verticalize} name = {options.state.currentPlayer.name} options = {shipOptions} vertical = {vertical} emptyboard = {emptyboard} selectGridForShip = {options.selectGridForShip}/>
+  var display = <PlaceShipsBoard  player = {options.state.currentPlayer}  selectGridForShip = {options.selectGridForShip}/>
   return display
 }
 
 
 
-export {createShip, unplacedShips, shipoptions, imageurls, shipDom, setupShipPlacementBoard, placeShips}
+export {createShip, unplacedShips, shipoptions, imageurls, shipDom, setupShipPlacementBoard, generateShipOptions, placeShips}
