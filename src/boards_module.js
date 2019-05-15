@@ -1,22 +1,61 @@
 import Gameboard from './gameboard'
 import React from 'react'
+import {createShip, generateShipOptions} from './ship_module'
+
 
 class PlaceShipsBoard extends React.Component{
+    //move verticalize state to here, and pass it back into selectGridForShip
+    constructor(props){
+        super(props)
+        this.state = {
+            vertical: false,
+            selectedship: null
+        }
+    }
 
+    verticalize(){
+        this.setState({vertical: !this.state.vertical})
+    }
+    
+    verticalDisplay(){
+        let vertical
+        if (this.state.vertical === true){
+            vertical = "Horizontalize Placement"
+        }else{
+            vertical = "Verticalize Placement"
+        }
+        return vertical
+    }
+
+    selectShip(ship){
+        //we could seperate these two, but the only time we need to use selected ship is during the place ship phase. 
+        //so in this situation we just create ship and set it for placement at the same time.
+        var newship = createShip(ship)
+        this.setState({selectedship: newship})
+    }
+
+    
     render(){  
         var click = null
-        if (this.props.selectedship){
+        var selectedship = null
+        
+        if (this.state.selectedship){
             click = this.props.selectGridForShip
+            
+            selectedship = <h4>{`You have selected ${this.state.selectedship.name}`}</h4>
         }
+       
         return(
+            
         <div className = "place-ships-board" style = {{display: "inline"}}>
-            <h2>{this.props.name + " Place Your Ships"}</h2>
-            <div>
-                <Gameboard value = {this.props.emptyboard} selectGridForShip = {click} placedships = {false}/>
+            <h2>{this.props.player.name + " Place Your Ships"}</h2>
+            {selectedship}
+            <div id = "place-ship-board">
+                <Gameboard value = {this.props.player.board.allgrids} selectGridForShip = {click} placedships = {false} vertical = {this.state.vertical} selectedship = {this.state.selectedship}/>
             </div>
-            <div style = {{display: "grid"}}>
-                <button onClick = {this.props.verticalize}>{this.props.vertical}</button>
-                {this.props.options}
+            <div id = "place-ship-options"style = {{display: "grid"}}>
+                <button id = "vertical-button" onClick = {this.verticalize.bind(this)}>{this.verticalDisplay.bind(this)()}</button>
+                {generateShipOptions({selectShip: this.selectShip.bind(this), currentPlayer: this.props.player})}
             </div>
         </div>
         )
