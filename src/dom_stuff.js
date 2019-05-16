@@ -15,15 +15,15 @@ function GameOverHeader(options){
   return(
     <div className = "game-over">
       {alert("Game Over! " + options.name + " Wins!")}
-      <h1>{"Game Over! " + options.name + " Wins!"}</h1>
+      <h1 id = "game-over-banner">{"Game Over! " + options.name + " Wins!"}</h1>
     </div>
   )
 }
 
 function StartNextRoundButton(options){
   return (
-    <div className = "blank-screen">
-      <h2 onClick = {options.startTurn}>{`Click to Start ${options.currentPlayer.name}'s Turn`}</h2>
+    <div className = "change-players-cutscreen">
+      <h2 className = "start-next-player-button" onClick = {options.startTurn}>{`Click to Start ${options.currentPlayer.name}'s Turn`}</h2>
     </div>
   )
 }

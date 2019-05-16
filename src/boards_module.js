@@ -76,7 +76,7 @@ class GameModeBoard extends React.Component {
 
             <div className = "game-mode-board">
                 <div id = "attack-board">
-                    <h2>Attack Board</h2>
+                    <h3>Attack Board</h3>
                     <Gameboard value = {this.props.nextPlayer} isOwnBoard = {!this.props.isOwnBoard} receiveAttack = {this.props.receiveAttack}/>
                 </div>
 
@@ -84,7 +84,7 @@ class GameModeBoard extends React.Component {
                 <br/>
 
                 <div id = "own-board">
-                    <h2>Your Board</h2>
+                    <h3>Your Board</h3>
                     <Gameboard value = {this.props.currentPlayer} isOwnBoard = {this.props.isOwnBoard}/>
                 </div>
             </div>    

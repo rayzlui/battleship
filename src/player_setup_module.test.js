@@ -7,7 +7,7 @@
     it("should have a board", () => {
        
        expect (player.board.allgrids.length).toEqual(81)
-       expect (player.board.allgrids.filter(grid=>grid.ship === null)).toEqual(81)
+       expect (player.board.allgrids.filter(grid=>grid.ship === null).length).toEqual(81)
     })
     it('should not have ships created', ()=>{
         expect(player.ships.length).toEqual(0)

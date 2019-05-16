@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {createShip, setupShipPlacementBoard, placeShips} from './ship_module'
+import {setupShipPlacementBoard, placeShips} from './ship_module'
 import {setupComputer, setupPlayers} from './player_setup_module'
 import {registerAttack, horizontalcheck, verticalcheck, computerAttackLocation} from './gameplay_module'
 import {GameModeBoard} from './boards_module'
@@ -33,7 +33,7 @@ class App extends React.Component{
 
   startOnePlayer(){
     var player = setupPlayers("1")
-    var computer = setupComputer({selectGridForShip: this.selectGridForShip})
+    var computer = setupComputer({placeShipForComputer: this.placeShipForComputer})
     this.setState({currentPlayer: player, nextPlayer: computer, gamestart: true})
   }
 
@@ -47,9 +47,6 @@ class App extends React.Component{
  
   
   selectGridForShip(id, vertical, ship, player = this.state.currentPlayer){
-
-    //consider splitting up this function and having it return the correct setState and set the computer function to have something "truthy" returned vs a boolean
-    
   
     var legalPlacement = vertical? verticalcheck({id: id, ship: ship, player: player} ) : horizontalcheck({id: id, ship: ship, player: player})
    
@@ -59,28 +56,16 @@ class App extends React.Component{
       //this setState updates the board to display where the ship was placed.
       this.setState({currentPlayer: player})
 
-      if (player.ships.length === 5 && !player.computer){
+      if (player.ships.length === 5){
   
         this.state.nextPlayer.ships.length === 0 ? this.setState({currentPlayer: this.state.nextPlayer, nextPlayer: this.state.currentPlayer, nextturn: true}) : this.setState({placedships: true, nextturn: true})
-      }
-
-      return true
-      //if this was a legal move we return true for computer to know.
-      
+      }      
     }else{
 
-      if (player.computer === false){
-        alert("Error: You either have a piece there or it goes offboard")
-      }else{
-        return false
-        //return false for computer to know
-      }
-
+      alert("Error: You either have a piece there or it goes offboard")
+  
     }
   }
-
-  
-
 
 
   receiveAttack(id){
@@ -89,10 +74,10 @@ class App extends React.Component{
     registerAttack({receiver: opponent, target: id, comp: false, attacker: null})
     
     if (opponent.board.gameover()){
-        this.setState({gameover: true})
-     }else{
-        (opponent.computer === true) ? this.runComputerTurn.bind(this)() : this.setState({postAttack: true})
-     }
+      this.setState({gameover: true})
+    }else{
+      (opponent.computer === true) ? this.runComputerTurn.bind(this)() : this.setState({postAttack: true})
+    }
     
       
   }
@@ -118,6 +103,7 @@ class App extends React.Component{
   }
 
   generateDisplay(){
+    //move function out as it does not actually set state.
     let display
     if (this.state.gamestart === false){
 
@@ -134,7 +120,7 @@ class App extends React.Component{
     }else{
 
       var click = this.receiveAttack
-      var header = <h1>{this.state.currentPlayer.name + " Turn"}</h1>
+      var header = <h2>{this.state.currentPlayer.name + " Turn"}</h2>
 
       //it will be either gameover or postAttack, never both.
       if (this.state.gameover === true){
@@ -144,7 +130,7 @@ class App extends React.Component{
       }
 
       if (this.state.postAttack){
-        header = <h1>Click on any empty attack grid to end turn.</h1>
+        header = <h2>Click on any empty attack grid to end turn.</h2>
         click = this.switchPlayers.bind(this)
       }
 
@@ -158,7 +144,7 @@ class App extends React.Component{
             receiveAttack = {click}
           />
         </div>
-    }
+      }
     return display
   }
 
@@ -167,9 +153,13 @@ class App extends React.Component{
     var display = this.generateDisplay.bind(this)()
 
     return(
-      <div className = "gameContainer" style = {{textAlign: "center", display: "inline-block"}}>
-        <h1 className = "title">BATTLETO-- SHIPS. BATTLE SHIPS</h1>
-        {display}
+      <div className = "game-container" style = {{textAlign: "center", display: "inline-block"}}>
+        <div className = "game-title">
+          <h1 className = "title">BATTLETO-- SHIPS. BATTLE SHIPS</h1>
+        </div>
+        <div className = "display-continer">
+          {display}
+        </div>
       </div>
 
     )
