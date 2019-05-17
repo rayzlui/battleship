@@ -27,6 +27,11 @@ class PlaceShipsBoard extends React.Component{
         return vertical
     }
 
+    selectGridForShip(id){
+        this.props.selectGridForShip(id, this.state.vertical, this.state.selectedship)
+        this.setState({selectedship: null})
+    }
+
     selectShip(ship){
         //we could seperate these two, but the only time we need to use selected ship is during the place ship phase. 
         //so in this situation we just create ship and set it for placement at the same time.
@@ -40,7 +45,7 @@ class PlaceShipsBoard extends React.Component{
         var selectedship = null
         
         if (this.state.selectedship){
-            click = this.props.selectGridForShip
+            click = this.selectGridForShip.bind(this)
             
             selectedship = <h4>{`You have selected ${this.state.selectedship.name}`}</h4>
         }
@@ -51,7 +56,7 @@ class PlaceShipsBoard extends React.Component{
             <h2>{this.props.player.name + " Place Your Ships"}</h2>
             {selectedship}
             <div id = "place-ship-board">
-                <Gameboard value = {this.props.player.board.allgrids} selectGridForShip = {click} placedships = {false} vertical = {this.state.vertical} selectedship = {this.state.selectedship}/>
+                <Gameboard value = {this.props.player.board.allgrids} selectGridForShip = {click} placedships = {false}/>
             </div>
             <div id = "place-ship-options"style = {{display: "grid"}}>
                 <button id = "vertical-button" onClick = {this.verticalize.bind(this)}>{this.verticalDisplay.bind(this)()}</button>
@@ -71,7 +76,7 @@ class GameModeBoard extends React.Component {
 
             <div className = "game-mode-board">
                 <div id = "attack-board">
-                    <h2>Attack Board</h2>
+                    <h3>Attack Board</h3>
                     <Gameboard value = {this.props.nextPlayer} isOwnBoard = {!this.props.isOwnBoard} receiveAttack = {this.props.receiveAttack}/>
                 </div>
 
@@ -79,7 +84,7 @@ class GameModeBoard extends React.Component {
                 <br/>
 
                 <div id = "own-board">
-                    <h2>Your Board</h2>
+                    <h3>Your Board</h3>
                     <Gameboard value = {this.props.currentPlayer} isOwnBoard = {this.props.isOwnBoard}/>
                 </div>
             </div>    

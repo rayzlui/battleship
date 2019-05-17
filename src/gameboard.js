@@ -10,7 +10,7 @@ class Gameboard extends React.Component{
 
     selectGridForShip(id){
         if (this.props.selectGridForShip){
-            this.props.selectGridForShip(id, this.props.vertical, this.props.selectedship)
+            this.props.selectGridForShip(id)
         }
     }
 

@@ -1,4 +1,5 @@
 function registerAttack(options){
+    
     var player = options.receiver
     var grid = player.board.allgrids[options.target]
     grid.hit = true
