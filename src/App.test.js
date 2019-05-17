@@ -2,10 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
 import {mount, shallow} from 'enzyme'
-import Player from './player'
-import Board from './board'
 import Ship from './ship'
-import {setupPlayers,setupComputer} from './player_setup_module'
 
 it('renders without crashing', () => {
   const div = document.createElement('div');
@@ -33,9 +30,11 @@ describe('<App/>', ()=>{
       it ("should change gamestart to true when oneplayer button is clicked" , () => {     
         expect(wrapper.state().gamestart).toEqual(true)
       })
+      
       it ("should no longer display IntroPage" , () => {     
         expect(wrapper.find("IntroPage").length).toEqual(0)
       })
+      
       it ("should display PlaceShipsBoard" , () => {     
         var testDisplay = wrapper.find("PlaceShipsBoard")
         expect(testDisplay.length).toEqual(1)
