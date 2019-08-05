@@ -5,6 +5,7 @@ import { nextTurnReducer } from "./nextTurnReducer"
 import { combineReducers } from 'redux'
 import { gameOverReducer } from "./gameoverReducer";
 import { placedShipsReducer } from './placedShipsReducer'
+import { postAttackReducer } from "./postAttackReducer";
 
 export const rootReducer = combineReducers({
   currentPlayer: currentPlayerReducer,
@@ -12,6 +13,6 @@ export const rootReducer = combineReducers({
   gameStart: gameStartReducer,
   placedShips: placedShipsReducer,
   gameOver: gameOverReducer,
-  postAttack: false,
+  postAttack: postAttackReducer,
   nextTurn: nextTurnReducer,
 })

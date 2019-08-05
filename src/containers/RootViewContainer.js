@@ -1,11 +1,10 @@
 import { RootView } from '../views/rootView'
 import { connect }from 'react-redux'
-import {startOnePlayer, startTwoPlayer} from '../actions/actions'
+import {startOnePlayer, startTwoPlayer, receiveAttackOne, receiveAttackTwo, startAttackOne, endHoldScreen, startAttackTwo, startAttack} from '../actions/actions'
 
 function mapStateToProps(state){
   return({
     state: state,
-    placedShips: state.placedShips,
     currentPlayer: state.currentPlayer,
     nextPlayer: state.nextPlayer,
     gameStart: state.gameStart,
@@ -19,6 +18,14 @@ function mapDispatchToProps(dispatch){
   return({
     startOnePlayer: () => dispatch(startOnePlayer()),
     startTwoPlayer: () => dispatch(startTwoPlayer()),
+    attackPlayerOne: target => dispatch(receiveAttackOne(target)),
+    attackPlayerTwo: target => dispatch(receiveAttackTwo(target)),
+    startAttackOne: () => dispatch(startAttackOne()),
+    startAttackTwo: () => dispatch(startAttackTwo()),
+    endHoldScreen: () => dispatch(endHoldScreen()),
+    startAttack: () => dispatch(startAttack()),
+
+    
   })
 }
 

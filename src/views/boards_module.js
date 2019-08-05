@@ -79,7 +79,7 @@ export function GameModeBoard(props) {
             <div className = "game-mode-board">
                 <div id = "attack-board">
                     <h3>Attack Board</h3>
-                    <Gameboard value = {nextPlayer} isOwnBoard = {!isOwnBoard} receiveAttack = {receiveAttack}/>
+                    <Gameboard value = {nextPlayer.board} isOwnBoard = {!isOwnBoard} receiveAttack = {receiveAttack}/>
                 </div>
 
                 <br/>
@@ -87,7 +87,7 @@ export function GameModeBoard(props) {
 
                 <div id = "own-board">
                     <h3>Your Board</h3>
-                    <Gameboard value = {currentPlayer} isOwnBoard = {isOwnBoard}/>
+                    <Gameboard value = {currentPlayer.board} isOwnBoard = {isOwnBoard}/>
                 </div>
             </div>    
         )

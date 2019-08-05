@@ -8,12 +8,12 @@ export function startTwoPlayer(){
   return { type: actions.START_TWO_PLAYER}
 }
 
-export function receiveAttackOne(target){
-  return { type: actions.RECEIVE_ATTACK_ONE, target: target}
+export function receiveAttackOne(id){
+  return { type: actions.RECEIVE_ATTACK_ONE, id: id}
 }
 
-export function receiveAttackTwo(target){
-  return { type: actions.RECEIVE_ATTACK_TWO, target: target}
+export function receiveAttackTwo(id){
+  return { type: actions.RECEIVE_ATTACK_TWO, id: id}
 }
 
 export function placeShipOne(options){
@@ -38,4 +38,20 @@ export function playerOnePlaced(){
 
 export function playerTwoPlaced(){
   return { type: actions.PLAYER_TWO_PLACED}
+}
+
+export function startAttackOne(){
+  return {type: actions.START_ATTACK_ONE}
+}
+
+export function startAttackTwo(){
+  return {type: actions.START_ATTACK_TWO}
+}
+
+export function startAttack(){
+  return { type: actions.START_ATTACK}
+}
+
+export function endHoldScreen(){
+  return { type: actions.END_HOLD_SCREEN}
 }

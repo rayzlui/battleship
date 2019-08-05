@@ -26,6 +26,7 @@ export function createPlayer(options) {
         board: board,
         computer: computer,
         shipsPlaced: false,
+        turn: false,
     }
 
 

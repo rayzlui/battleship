@@ -25,7 +25,7 @@ function StartNextRoundButton(props){
   const { startTurn, currentPlayer } = props
   return (
     <div className = "change-players-cutscreen">
-      <h2 className = "start-next-player-button" onClick = {startTurn}>{`Click to Start ${currentPlayer.name}'s Turn`}</h2>
+      <h2 className = "start-next-player-button" onClick = {startTurn}>{`Click to Start ${currentPlayer}'s Turn`}</h2>
     </div>
   )
 }

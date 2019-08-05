@@ -4,7 +4,7 @@ import {Grid} from './grid'
 function Gameboard(props){
 
     const { selectGridForShip, receiveAttack, value, isOwnBoard, placedships } = props
-   
+    console.log(props)
     let display = []
     let x = 0
     var row = []

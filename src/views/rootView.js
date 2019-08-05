@@ -7,6 +7,7 @@ import {GameModeBoard, PlaceShipsBoard} from './boards_module'
 import {IntroPage, GameOverHeader, StartNextRoundButton} from './dom_stuff'
 import {isGameOver} from '../classes/board'
 import { PlaceShipsBoardContainer } from '../containers/PlaceShipsBoardContainer'
+import { startAttackTwo } from '../actions/actions';
 
 
  
@@ -16,7 +17,6 @@ export class RootView extends React.Component{
   constructor(props){
     super(props)
     this.state = this.props.state
-    console.log(this.state)
     this.startOnePlayer = this.props.startOnePlayer
     this.startTwoPlayer = this.props.startTwoPlayer
     this.receiveAttack = this.receiveAttack.bind(this)
@@ -27,7 +27,6 @@ export class RootView extends React.Component{
   receiveAttack(id){
 
     var opponent = this.props.nextPlayer
-    registerAttack({receiver: opponent, target: id, comp: false, attacker: null})
     
     if (isGameOver(opponent.board)){
       this.setState({gameover: true})
@@ -53,12 +52,6 @@ export class RootView extends React.Component{
   }
 
 
-  
-  //dispatch(startTurn)
-  startTurn(){  
-    this.setState({nextturn: false})  
-  }
-
   generateDisplay(){
     //move function out as it does not actually set state.
     let display
@@ -66,9 +59,9 @@ export class RootView extends React.Component{
 
       display = <IntroPage startOne = {this.startOnePlayer} startTwo = {this.startTwoPlayer}/>
 
-    }else if (this.props.nextturn){
+    }else if (this.props.nextTurn){
       //next turn is triggered by switchplayers, which is in the last part of the function.
-      display = StartNextRoundButton({ startTurn: this.startTurn.bind(this), currentPlayer: this.props.currentPlayer})
+      display = StartNextRoundButton({startTurn: this.props.startAttack, currentPlayer: this.props.currentPlayer.turn ? this.props.currentPlayer.name : this.props.nextPlayer.name})
 
     }else if (!this.props.currentPlayer.shipsPlaced){
       //display = setupShipPlacementBoard({state:this.state, selectGridForShip: this.selectGridForShip })
@@ -77,9 +70,10 @@ export class RootView extends React.Component{
       display = <PlaceShipsBoardContainer  player = {this.props.nextPlayer}  />
     }else{
 
-      var click = this.receiveAttack
-      var header = <h2>{this.props.currentPlayer.name + " Turn"}</h2>
-
+      var click = this.props.currentPlayer.turn ? id => this.props.attackPlayerTwo(id) : id => this.props.attackPlayerOne(id)
+      var header = <h2>{this.props.currentPlayer.turn ?  this.props.currentPlayer.name : this.props.nextPlayer.name + " Turn"}</h2>
+      let attacker = this.props.currentPlayer.turn ? this.props.currentPlayer : this.props.nextPlayer
+      let defender = this.props.currentPlayer.turn ? this.props.nextPlayer : this.props.currentPlayer
       //it will be either gameover or postAttack, never both.
       if (this.props.gameOver === true){
         click = null
@@ -89,15 +83,18 @@ export class RootView extends React.Component{
 
       if (this.props.postAttack){
         header = <h2>Click on any empty attack grid to end turn.</h2>
-        click = this.switchPlayers.bind(this)
+        click = () => { 
+          this.props.endHoldScreen()
+          this.props.currentPlayer.turn ? this.props.startAttackTwo() : this.props.startAttackOne()
+        }
+        
       }
-
       display = 
         <div className = "attack-board">
           {header}
           <GameModeBoard 
-            currentPlayer = {this.props.currentPlayer.board} 
-            nextPlayer = {this.props.nextPlayer.board}
+            currentPlayer = {attacker} 
+            nextPlayer = {defender}
             isOwnBoard = {true}
             receiveAttack = {click}
           />
