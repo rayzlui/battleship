@@ -1,7 +1,7 @@
 import { setupPlayers } from "../helperFunctions/player_setup_module";
-
+import { START_ONE_PLAYER, START_TWO_PLAYER, RECEIVE_ATTACK_ONE, PLACE_SHIP_ONE, PLAYER_ONE_PLACED } from '../actions/actionTypes'
 export function currentPlayerReducer(state = null, actions){
-  const { target, type, ship, vertical } = actions
+  const { type, shipPlace } = actions
   switch(type){
     case START_ONE_PLAYER:
     case START_TWO_PLAYER:
@@ -10,7 +10,9 @@ export function currentPlayerReducer(state = null, actions){
       return Object.assign({}, state, state.board[target].hit = true
       )
     case PLACE_SHIP_ONE:
-      const board = state.board
+      const {ship, target, vertical} = shipPlace
+
+      const board = state.board.slice()
       for (let i = 0; i < ship.length; i++ ){
         let x = i
         if (vertical === true){
@@ -18,7 +20,9 @@ export function currentPlayerReducer(state = null, actions){
         }
         board[target + x].ship = ship
       }
-      return Object.assign({}, state, state.ships.push(ship), state.board = board)
+      return Object.assign({}, state, state.ships.push(ship))
+    case PLAYER_ONE_PLACED:
+      return Object.assign({}, state, state.shipsPlaced = true)
     default:
       return state;
   }

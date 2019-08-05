@@ -16,6 +16,8 @@ export function createPlayer(options) {
             ships: [],
             board: board,
             computer: computer,
+            shipsPlaced: true,
+
         }
     }
     return{
@@ -23,6 +25,7 @@ export function createPlayer(options) {
         ships: [],
         board: board,
         computer: computer,
+        shipsPlaced: false,
     }
 
 

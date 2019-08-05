@@ -6,6 +6,7 @@ import { computerAttackLocation } from '../helperFunctions/computerAttack'
 import {GameModeBoard, PlaceShipsBoard} from './boards_module'
 import {IntroPage, GameOverHeader, StartNextRoundButton} from './dom_stuff'
 import {isGameOver} from '../classes/board'
+import { PlaceShipsBoardContainer } from '../containers/PlaceShipsBoardContainer'
 
 
  
@@ -14,65 +15,18 @@ export class RootView extends React.Component{
   
   constructor(props){
     super(props)
-    this.state = {
-      currentPlayer: null ,
-      nextPlayer: null,
-      gameStart: false,
-      placedShips: false,
-      gameover: false,
-      postAttack: false,
-      nextturn: false
-  
-    }
-
-    this.startOnePlayer = this.startOnePlayer.bind(this)
-    this.startTwoPlayer = this.startTwoPlayer.bind(this)
-    this.selectGridForShip = this.selectGridForShip.bind(this)
+    this.state = this.props.state
+    console.log(this.state)
+    this.startOnePlayer = this.props.startOnePlayer
+    this.startTwoPlayer = this.props.startTwoPlayer
     this.receiveAttack = this.receiveAttack.bind(this)
   }
 
-  
-  //dispatch(startOnePlayer)
-  startOnePlayer(){
-    var player = setupPlayers("1")
-    var computer = setupComputer({placeShipForComputer: this.placeShipForComputer})
-    this.setState({currentPlayer: player, nextPlayer: computer, gameStart: true})
-  }
-
-  //dispatch(startTwoPlayer)
-  startTwoPlayer(){
-    
-    var player1 = setupPlayers("1")
-    var player2 = setupPlayers("2")
-    this.setState({currentPlayer: player1, nextPlayer: player2, gameStart: true, nextturn: true})
-  }
-
- 
-  
-  selectGridForShip(id, vertical, ship, player = this.state.currentPlayer){
-    var legalPlacement = vertical? verticalcheck({id: id, ship: ship, player: player} ) : horizontalcheck({id: id, ship: ship, player: player})
-   
-    if (legalPlacement){
-      
-      player = placeShips({player: player, vertical: vertical, ship: ship, id: id})
-      //this setState updates the board to display where the ship was placed.
-      this.setState({currentPlayer: player})
-
-      if (player.ships.length === 5){
-  
-        this.state.nextPlayer.ships.length === 0 ? this.setState({currentPlayer: this.state.nextPlayer, nextPlayer: this.state.currentPlayer, nextturn: true}) : this.setState({placedShips: true, nextturn: true})
-      }      
-    }else{
-
-      alert("Error: You either have a piece there or it goes offboard")
-  
-    }
-  }
 
   //dispatch(runComputerTurn) or dispatch(postAttack) or dispatch(gameOver)
   receiveAttack(id){
 
-    var opponent = this.state.nextPlayer
+    var opponent = this.props.nextPlayer
     registerAttack({receiver: opponent, target: id, comp: false, attacker: null})
     
     if (isGameOver(opponent.board)){
@@ -85,14 +39,14 @@ export class RootView extends React.Component{
   }
   //dispatch(switchPlayers) or this can be dealt with in useState() for battleView
   switchPlayers(){  
-    this.setState({currentPlayer: this.state.nextPlayer, nextPlayer: this.state.currentPlayer, postAttack: false, nextturn: true})
+    this.setState({currentPlayer: this.props.nextPlayer, nextPlayer: this.props.currentPlayer, postAttack: false, nextturn: true})
       
   }
 
   //dispatch(endComputerTurn)
   runComputerTurn(){ 
-    var opponent = this.state.nextPlayer
-    var player = this.state.currentPlayer
+    var opponent = this.props.nextPlayer
+    var player = this.props.currentPlayer
     var target = computerAttackLocation(opponent)
     registerAttack({receiver: player, target: target, computer: true, attacker: opponent})
     this.setState({currentPlayer: player, nextPlayer: opponent})
@@ -108,31 +62,32 @@ export class RootView extends React.Component{
   generateDisplay(){
     //move function out as it does not actually set state.
     let display
-    if (this.state.gameStart === false){
+    if (this.props.gameStart === false){
 
       display = <IntroPage startOne = {this.startOnePlayer} startTwo = {this.startTwoPlayer}/>
 
-    }else if (this.state.nextturn){
+    }else if (this.props.nextturn){
       //next turn is triggered by switchplayers, which is in the last part of the function.
-      display = StartNextRoundButton({ startTurn: this.startTurn.bind(this), currentPlayer: this.state.currentPlayer})
+      display = StartNextRoundButton({ startTurn: this.startTurn.bind(this), currentPlayer: this.props.currentPlayer})
 
-    }else if (this.state.placedShips === false){
-
+    }else if (!this.props.currentPlayer.shipsPlaced){
       //display = setupShipPlacementBoard({state:this.state, selectGridForShip: this.selectGridForShip })
-      display = <PlaceShipsBoard  player = {this.state.currentPlayer}  selectGridForShip = {this.selectGridForShip}/>
+      display = <PlaceShipsBoardContainer  player = {this.props.currentPlayer}  />
+    } else if (!this.props.nextPlayer.shipsPlaced){
+      display = <PlaceShipsBoardContainer  player = {this.props.nextPlayer}  />
     }else{
 
       var click = this.receiveAttack
-      var header = <h2>{this.state.currentPlayer.name + " Turn"}</h2>
+      var header = <h2>{this.props.currentPlayer.name + " Turn"}</h2>
 
       //it will be either gameover or postAttack, never both.
-      if (this.state.gameover === true){
+      if (this.props.gameOver === true){
         click = null
-        header = GameOverHeader({name:this.state.currentPlayer.name})
+        header = GameOverHeader({name:this.props.currentPlayer.name})
         
       }
 
-      if (this.state.postAttack){
+      if (this.props.postAttack){
         header = <h2>Click on any empty attack grid to end turn.</h2>
         click = this.switchPlayers.bind(this)
       }
@@ -141,8 +96,8 @@ export class RootView extends React.Component{
         <div className = "attack-board">
           {header}
           <GameModeBoard 
-            currentPlayer = {this.state.currentPlayer.board} 
-            nextPlayer = {this.state.nextPlayer.board}
+            currentPlayer = {this.props.currentPlayer.board} 
+            nextPlayer = {this.props.nextPlayer.board}
             isOwnBoard = {true}
             receiveAttack = {click}
           />

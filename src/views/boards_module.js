@@ -2,6 +2,7 @@ import Gameboard from './gameboard'
 import React, {useState} from 'react'
 import {createShip} from '../helperFunctions/ship_module'
 import {IMAGE_URLS, SHIP_OPTIONS} from '../helperFunctions/ship_module'
+import { verticalcheck, horizontalcheck } from '../helperFunctions/gameplay_module'
 
 
 
@@ -18,7 +19,7 @@ export function PlaceShipsBoard(props){
     }
 
     const ships = SHIP_OPTIONS.slice()
-    const {player, selectGridForShip} = props
+    const {player, placeShipOne, placeShipTwo, playerOnePlaced, playerTwoPlaced} = props
     for (var i = 0 ; i < player.ships.length; i++){
         var index = ships.indexOf(player.ships[i].name)
         if (index !== -1){
@@ -32,12 +33,23 @@ export function PlaceShipsBoard(props){
             changeShip(newship)
         }}/>
     )
+
     
     let  click = () => null
     let selectedShipHeader = null
     if (selectedShip){
+        let placeFunc = player.name === 'Player 1' ? placeShipOne : placeShipTwo
+        let completeFunc = player.name === 'Player 1' ? playerOnePlaced : playerTwoPlaced
         click = (id) => {
-            selectGridForShip(id, isVertical, selectedShip, player)
+            let legalPlacement = isVertical? verticalcheck({id: id, ship: selectedShip, player: player} ) : horizontalcheck({id: id, ship: selectedShip, player: player})
+            if (legalPlacement){
+                placeFunc({target: id, vertical: isVertical, ship: selectedShip})      
+                if (player.ships.length === 5){
+                    completeFunc()
+                }             
+            }else{      
+                alert("Error: You either have a piece there or it goes offboard")
+            }
             changeShip(null)
         }
         
