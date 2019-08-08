@@ -6,14 +6,3 @@ export function createBoard() {
   }
   return board;
 }
-
-export function isGameOver(board) {
-  for (let i = 0; i < board.length; i++) {
-    if (board[i].ship !== null) {
-      if (board[i].hit === false) {
-        return false;
-      }
-    }
-  }
-  return true;
-}

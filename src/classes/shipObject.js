@@ -5,6 +5,6 @@ export function shipObject(options) {
     length: length,
     shiphits: 0,
     sunk: false,
-    image: image
+    image: image,
   };
 }

@@ -1,10 +1,6 @@
 export function createPlayer(options) {
-  const { name, computer, board } = options;
+  const { name, computer, board, attackOptions } = options;
   if (computer) {
-    let attackOptions = [];
-    for (let i = 0; i <= 80; i++) {
-      attackOptions.push(i);
-    }
     return {
       attackOptions: attackOptions,
       targetHit: null,
@@ -13,7 +9,7 @@ export function createPlayer(options) {
       board: board,
       computer: computer,
       shipsPlaced: true,
-      loser: false
+      loser: false,
     };
   }
   return {
@@ -23,6 +19,6 @@ export function createPlayer(options) {
     computer: computer,
     shipsPlaced: false,
     turn: false,
-    loser: false
+    loser: false,
   };
 }
