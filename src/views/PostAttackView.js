@@ -13,7 +13,7 @@ export function PostAttackView(props) {
     attackPlayerOne,
     updateComputerAttackOptions,
     startAttackOne,
-    startAttack,
+    beginAttack,
     startAttackTwo,
   } = props;
   if (!postAttack) return null;
@@ -34,7 +34,7 @@ export function PostAttackView(props) {
         attackPlayerOne(target);
         updateComputerAttackOptions(target);
         startAttackOne();
-        startAttack();
+        beginAttack();
       } else {
         playerOne.turn ? startAttackTwo() : startAttackOne();
       }
@@ -65,5 +65,5 @@ PostAttackView.propTypes = {
   updateComputerAttackOptions: PropTypes.func,
   startAttackOne: PropTypes.func,
   startAttackTwo: PropTypes.func,
-  startAttack: PropTypes.func,
+  beginAttack: PropTypes.func,
 };

@@ -27,7 +27,7 @@ export function AttackView(props) {
     attacker = playerOne;
     defender = playerTwo;
     click = target => attackPlayerTwo(target);
-    header = playerOne.name + 'turn';
+    header = playerOne.name + ' turn';
   }
 
   if (attacker.loser || defender.loser) {
