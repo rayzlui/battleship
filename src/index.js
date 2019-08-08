@@ -19,5 +19,4 @@ Player uses master grids to produce board
 
 */
 
-
 serviceWorker.unregister();
