@@ -3,6 +3,7 @@ import { AttackBoard } from './AttackBoard';
 import { OwnBoard } from './OwnBoard';
 import { getComputerAttackLocation } from '../helperFunctions/computerAttack';
 import PropTypes from 'prop-types';
+import { GameOverHeader } from './GameOverHeader';
 
 export function PostAttackView(props) {
   const {
@@ -26,27 +27,29 @@ export function PostAttackView(props) {
     defender = playerTwo;
   }
 
+  let header = 'Click on any empty attack grid to end turn.';
+
   let click = () => {
     endHoldScreen();
-    if (!defender.loser) {
-      if (defender.computer === true) {
-        let target = getComputerAttackLocation(playerTwo, playerOne);
-        attackPlayerOne(target);
-        updateComputerAttackOptions(target);
-        startAttackOne();
-        beginAttack();
-      } else {
-        playerOne.turn ? startAttackTwo() : startAttackOne();
-      }
-    } else {
+    if (defender.computer === true) {
+      let target = getComputerAttackLocation(playerTwo, playerOne);
+      attackPlayerOne(target);
+      updateComputerAttackOptions(target);
       startAttackOne();
       beginAttack();
+    } else {
+      playerOne.turn ? startAttackTwo() : startAttackOne();
     }
   };
 
+  if (defender.loser) {
+    click = () => alert(`${defender.name} is a loooooooser`);
+    header = <GameOverHeader name={attacker.name} />;
+  }
+
   return (
     <div className="attack-board" onClick={click}>
-      <h2>Click on any empty attack grid to end turn.</h2>
+      <h2>{header}</h2>
       <div className="attack-board">
         <h3>Attack Board</h3>
         <AttackBoard board={defender.board} receiveAttack={() => null} />

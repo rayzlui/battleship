@@ -1,5 +1,4 @@
 import React from 'react';
-import { GameOverHeader } from './GameOverHeader';
 import { AttackBoard } from './AttackBoard';
 import { OwnBoard } from './OwnBoard';
 
@@ -28,11 +27,6 @@ export function AttackView(props) {
     defender = playerTwo;
     click = target => attackPlayerTwo(target);
     header = playerOne.name + ' turn';
-  }
-
-  if (attacker.loser || defender.loser) {
-    click = () => alert(`${defender.name} is a loooooooser`);
-    header = <GameOverHeader name={attacker.name} />;
   }
 
   display = (
