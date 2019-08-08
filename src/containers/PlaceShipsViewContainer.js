@@ -1,19 +1,19 @@
-import { connect } from "react-redux";
+import { connect } from 'react-redux';
 import {
   placeShipOne,
   placeShipTwo,
   playerOnePlaced,
   playerTwoPlaced,
-  completeShipPlacement
-} from "../actions/actions";
-import { PlaceShipsView } from "../views/PlaceShipsView";
+  completeShipPlacement,
+} from '../actions/actions';
+import { PlaceShipsView } from '../views/PlaceShipsView';
 
 function mapStateToProps(state) {
   return {
-    currentPlayer: state.currentPlayer,
-    nextPlayer: state.nextPlayer,
+    playerOne: state.playerOne,
+    playerTwo: state.playerTwo,
     placedShips: state.placedShips,
-    gameStart: state.gameStart
+    gameStart: state.gameStart,
   };
 }
 
@@ -23,11 +23,11 @@ function mapDispatchToProps(dispatch) {
     placeShipTwo: options => dispatch(placeShipTwo(options)),
     playerOnePlaced: () => dispatch(playerOnePlaced()),
     playerTwoPlaced: () => dispatch(playerTwoPlaced()),
-    completedPlacement: () => dispatch(completeShipPlacement())
+    completedPlacement: () => dispatch(completeShipPlacement()),
   };
 }
 
 export const PlaceShipsViewContainer = connect(
   mapStateToProps,
-  mapDispatchToProps
+  mapDispatchToProps,
 )(PlaceShipsView);
