@@ -1,19 +1,20 @@
-import React from "react";
+import React from 'react';
+import PropTypes from 'prop-types';
 
 export function AttackBoardGrid(props) {
-  const { value, receiveAttack } = props;
+  const { grid, receiveAttack } = props;
 
-  const { ship, hit } = value;
+  const { ship, hit } = grid;
   let click,
     color,
     shipImage = null;
 
   if (hit === false) {
     click = receiveAttack;
-    color = "blue";
+    color = 'blue';
   } else {
     click = () => alert("You've already attacked this position");
-    color = ship === null ? "green" : "red";
+    color = ship === null ? 'green' : 'red';
   }
 
   return (
@@ -21,13 +22,13 @@ export function AttackBoardGrid(props) {
       className={`grid ${color}`}
       style={{
         backgroundColor: color,
-        height: "60px",
-        width: "60px",
-        borderWidth: "5px",
-        borderColor: "black",
-        display: "inline-block",
+        height: '60px',
+        width: '60px',
+        borderWidth: '5px',
+        borderColor: 'black',
+        display: 'inline-block',
         margin: 1,
-        verticalAlign: "top"
+        verticalAlign: 'top',
       }}
       onClick={click}
     >
@@ -35,3 +36,8 @@ export function AttackBoardGrid(props) {
     </div>
   );
 }
+
+AttackBoardGrid.propTypes = {
+  receiveAttack: PropTypes.func,
+  grid: PropTypes.object,
+};

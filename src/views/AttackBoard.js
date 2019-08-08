@@ -1,23 +1,22 @@
-import React from "react";
-import { AttackBoardGrid } from "./AttackBoardGrid";
+import React from 'react';
+import { AttackBoardGrid } from './AttackBoardGrid';
+import PropTypes from 'prop-types';
 
 export function AttackBoard(props) {
-  const { receiveAttack, value } = props;
+  const { receiveAttack, board } = props;
   let display = [];
   let x = 0;
   let row = [];
-  let element;
-  for (let i = 0; i < value.length; i++) {
+  for (let i = 0; i < board.length; i++) {
     const gridNum = i;
-    let grid = value[i];
+    let gridValues = board[i];
 
-    element = (
+    row.push(
       <AttackBoardGrid
-        value={grid}
+        grid={gridValues}
         receiveAttack={() => receiveAttack(gridNum)}
-      />
+      />,
     );
-    row.push(element);
     if (row.length === 9) {
       display.push(<li key={x}>{row}</li>);
       x += 1;
@@ -26,8 +25,13 @@ export function AttackBoard(props) {
   }
 
   return (
-    <div className="attackboard" style={{ backgroundColor: "black" }}>
-      <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>{display}</ul>
+    <div className="attackboard" style={{ backgroundColor: 'black' }}>
+      <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>{display}</ul>
     </div>
   );
 }
+
+AttackBoard.propTypes = {
+  receiveAttack: PropTypes.func,
+  board: PropTypes.object,
+};

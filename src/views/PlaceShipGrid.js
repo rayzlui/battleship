@@ -1,42 +1,42 @@
-import React from "react";
+import React from 'react';
+import PropTypes from 'prop-types';
 
 export function PlaceShipGrid(props) {
-  const { selectGridForShip, info, id } = props;
+  const { selectGridForShip, grid, id } = props;
 
-  const { ship } = info;
+  const { ship } = grid;
   let click,
     color,
     shipImage = null;
 
   if (ship === null) {
     click = selectGridForShip;
-    color = "blue";
+    color = 'blue';
     shipImage = null;
   } else {
     const { image } = ship;
-    color = "grey";
-    click = null;
+    color = 'grey';
     shipImage = (
       <img
         src={image}
         alt={image}
-        style={{ height: 30, width: 30, display: "inline-block", margin: 0 }}
+        style={{ height: 30, width: 30, display: 'inline-block', margin: 0 }}
       />
     );
   }
 
   return (
     <div
-      className={"grid" + id}
+      className={'grid' + id}
       style={{
         backgroundColor: color,
-        height: "60px",
-        width: "60px",
-        borderWidth: "5px",
-        borderColor: "black",
-        display: "inline-block",
+        height: '60px',
+        width: '60px',
+        borderWidth: '5px',
+        borderColor: 'black',
+        display: 'inline-block',
         margin: 1,
-        verticalAlign: "top"
+        verticalAlign: 'top',
       }}
       onClick={click}
     >
@@ -44,3 +44,9 @@ export function PlaceShipGrid(props) {
     </div>
   );
 }
+
+PlaceShipGrid.propTypes = {
+  selectGridForShip: PropTypes.func,
+  id: PropTypes.number,
+  grid: PropTypes.object,
+};

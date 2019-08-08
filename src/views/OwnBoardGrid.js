@@ -1,31 +1,32 @@
-import React from "react";
+import React from 'react';
+import PropTypes from 'prop-types';
 
 export function OwnBoardGrid(props) {
-  const { value, id } = props;
+  const { grid, id } = props;
 
-  const { ship } = value;
+  const { ship } = grid;
   let color,
     shipImage = null;
 
   let click = () => alert("You can't attack yourself silly.");
   if (ship === null) {
-    color = value.hit === true ? "white" : "blue";
+    color = grid.hit === true ? 'white' : 'blue';
   } else {
-    if (value.hit === true) {
-      color = "red";
+    if (grid.hit === true) {
+      color = 'red';
     } else {
-
-      const { image } = ship;
-      color = "grey";
+      const { image, name } = ship;
+      color = 'grey';
       shipImage = (
         <img
+          className="grid-ship-image"
           src={image}
-          alt={image}
+          alt={name}
           style={{
             height: 30,
             width: 30,
-            display: "inline-block",
-            margin: 0
+            display: 'inline-block',
+            margin: 0,
           }}
         />
       );
@@ -34,16 +35,16 @@ export function OwnBoardGrid(props) {
 
   return (
     <div
-      className={"grid" + id}
+      className={'grid' + id}
       style={{
         backgroundColor: color,
-        height: "60px",
-        width: "60px",
-        borderWidth: "5px",
-        borderColor: "black",
-        display: "inline-block",
+        height: '60px',
+        width: '60px',
+        borderWidth: '5px',
+        borderColor: 'black',
+        display: 'inline-block',
         margin: 1,
-        verticalAlign: "top"
+        verticalAlign: 'top',
       }}
       onClick={click}
     >
@@ -51,3 +52,8 @@ export function OwnBoardGrid(props) {
     </div>
   );
 }
+
+OwnBoardGrid.propTypes = {
+  grid: PropTypes.array,
+  id: PropTypes.number,
+};
