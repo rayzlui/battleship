@@ -18,7 +18,7 @@ export function AttackView(props) {
 
   if (!gameStart || !placedShips || nextTurn || postAttack) return null;
 
-  let header = playerTwo.name;
+  let header = playerTwo.name + ' turn';
   let attacker = playerTwo;
   let defender = playerOne;
   let click = target => attackPlayerOne(target);

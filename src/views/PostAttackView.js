@@ -38,6 +38,9 @@ export function PostAttackView(props) {
       } else {
         playerOne.turn ? startAttackTwo() : startAttackOne();
       }
+    } else {
+      startAttackOne();
+      beginAttack();
     }
   };
 
