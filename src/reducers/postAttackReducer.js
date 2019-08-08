@@ -2,8 +2,8 @@ import {
   START_ATTACK_ONE,
   START_ATTACK_TWO,
   RECEIVE_ATTACK_TWO,
-  RECEIVE_ATTACK_ONE
-} from "../actions/actionTypes";
+  RECEIVE_ATTACK_ONE,
+} from '../actions/actionTypes';
 
 export function postAttackReducer(state = false, actions) {
   switch (actions.type) {

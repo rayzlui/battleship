@@ -1,8 +1,8 @@
-import { SHIPS_PLACED } from "../actions/actionTypes";
+import { PLACED_SHIPS_COMPLETED } from '../actions/actionTypes';
 
 export function placedShipsReducer(state = false, actions) {
   switch (actions.type) {
-    case SHIPS_PLACED:
+    case PLACED_SHIPS_COMPLETED:
       return true;
     default:
       return state;
