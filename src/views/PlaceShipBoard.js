@@ -2,7 +2,7 @@ import React from 'react';
 import { PlaceShipGrid } from './PlaceShipGrid';
 import PropTypes from 'prop-types';
 
-export function PlaceShipsBoard(props) {
+export function PlaceShipBoard(props) {
   const { selectGridForShip, board } = props;
   let display = [];
   let rowNum = 0;
@@ -13,7 +13,6 @@ export function PlaceShipsBoard(props) {
     row.push(
       <PlaceShipGrid
         key={`${gridNum} grid`}
-        id={gridNum}
         grid={grid}
         selectGridForShip={() => selectGridForShip(gridNum)}
       />,
@@ -32,7 +31,7 @@ export function PlaceShipsBoard(props) {
   );
 }
 
-PlaceShipsBoard.propTypes = {
+PlaceShipBoard.propTypes = {
   selectGridForShip: PropTypes.func,
   board: PropTypes.array,
 };

@@ -6,8 +6,6 @@ import {
   placeShipOne,
   placeShipTwo,
   completeShipPlacement,
-  playerOnePlaced,
-  playerTwoPlaced,
   beginAttack,
   startAttackOne,
   startAttackTwo,
@@ -22,8 +20,6 @@ import {
   PLACE_SHIP_ONE,
   PLACE_SHIP_TWO,
   PLACED_SHIPS_COMPLETED,
-  PLAYER_ONE_PLACED,
-  PLAYER_TWO_PLACED,
   START_ATTACK_ONE,
   START_ATTACK_TWO,
   BEGIN_ATTACK,
@@ -89,20 +85,6 @@ describe('completeShipPlacement', () => {
   it('should return object', () => {
     const completePlace = completeShipPlacement();
     expect(completePlace).toEqual({ type: PLACED_SHIPS_COMPLETED });
-  });
-});
-
-describe('playerOnePlaced', () => {
-  it('should return object', () => {
-    const onePlaced = playerOnePlaced();
-    expect(onePlaced).toEqual({ type: PLAYER_ONE_PLACED });
-  });
-});
-
-describe('playerTwoPlaced', () => {
-  it('should return object', () => {
-    const twoPlaced = playerTwoPlaced();
-    expect(twoPlaced).toEqual({ type: PLAYER_TWO_PLACED });
   });
 });
 

@@ -28,14 +28,6 @@ export function completeShipPlacement() {
   return { type: actions.PLACED_SHIPS_COMPLETED };
 }
 
-export function playerOnePlaced() {
-  return { type: actions.PLAYER_ONE_PLACED };
-}
-
-export function playerTwoPlaced() {
-  return { type: actions.PLAYER_TWO_PLACED };
-}
-
 export function startAttackOne() {
   return { type: actions.START_ATTACK_ONE };
 }

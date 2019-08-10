@@ -33,3 +33,33 @@ export function verticalCheck(options) {
 export function checkLegalMove(options) {
   return options.vertical ? verticalCheck(options) : horizontalCheck(options);
 }
+
+export function tryAndPlaceShip(options) {
+  const {
+    changeShip,
+    placementFunction,
+    isVertical,
+    target,
+    selectedShip,
+    player,
+  } = options;
+  let legalPlacement = checkLegalMove({
+    vertical: isVertical,
+    spot: target,
+    ship: selectedShip,
+    player: player,
+  });
+
+  if (legalPlacement) {
+    let options = {
+      spot: target,
+      vertical: isVertical,
+      ship: selectedShip,
+    };
+    placementFunction(options);
+  } else {
+    alert('Error: You either have a piece there or it goes offboard');
+  }
+
+  changeShip(null);
+}

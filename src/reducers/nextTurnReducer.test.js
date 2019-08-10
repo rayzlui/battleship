@@ -1,8 +1,8 @@
 import {
   BEGIN_ATTACK,
-  PLAYER_TWO_PLACED,
   END_HOLD_SCREEN,
   RECEIVE_ATTACK_ONE,
+  PLACED_SHIPS_COMPLETED,
 } from '../actions/actionTypes';
 import { nextTurnReducer } from './nextTurnReducer';
 
@@ -14,7 +14,7 @@ describe('nextTurnReducer', () => {
   });
 
   it('should handle action', () => {
-    const action = { type: PLAYER_TWO_PLACED };
+    const action = { type: PLACED_SHIPS_COMPLETED };
     const reducer = nextTurnReducer(undefined, action);
     expect(reducer).toEqual(true);
   });

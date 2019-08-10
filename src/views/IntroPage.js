@@ -9,10 +9,10 @@ export function IntroPage(props) {
       className="start-game"
       style={{ textAlign: 'center', display: 'inline-block' }}
     >
-      <button className="oneplayer" onClick={startOnePlayer}>
+      <button className="oneplayerstart" onClick={startOnePlayer}>
         One Player
       </button>
-      <button className="twoplayer" onClick={startTwoPlayer}>
+      <button className="twoplayerstart" onClick={startTwoPlayer}>
         Two Player
       </button>
     </div>

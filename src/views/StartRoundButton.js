@@ -7,10 +7,10 @@ export function StartRoundButton(props) {
   let name = playerOne.turn ? playerOne.name : playerTwo.name;
   return (
     <div className="change-players-cutscreen">
-      <h2
+      <button
         className="start-next-player-button"
         onClick={beginAttack}
-      >{`Click to Start ${name}'s Turn`}</h2>
+      >{`Click to Start ${name}'s Turn`}</button>
     </div>
   );
 }

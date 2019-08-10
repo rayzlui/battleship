@@ -1,5 +1,5 @@
 import React from 'react';
-import { PlaceShipsViewContainer } from '../containers/PlaceShipsViewContainer';
+import { PlaceShipViewContainer } from '../containers/PlaceShipViewContainer';
 import { IntroPageContainer } from '../containers/IntroPageContainer';
 import { StartRoundButtonContainer } from '../containers/StartRoundButtonContainer';
 import { AttackViewContainer } from '../containers/AttackViewContainer';
@@ -17,7 +17,7 @@ export function RootView(props) {
       <div className="display-continer">
         <IntroPageContainer />
         <StartRoundButtonContainer />
-        <PlaceShipsViewContainer />
+        <PlaceShipViewContainer />
         <AttackViewContainer />
         <PostAttackContainer />
       </div>

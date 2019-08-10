@@ -13,8 +13,8 @@ export function PostAttackView(props) {
     endHoldScreen,
     attackPlayerOne,
     updateComputerAttackOptions,
-    startAttackOne,
     beginAttack,
+    startAttackOne,
     startAttackTwo,
   } = props;
   if (!postAttack) return null;
@@ -27,7 +27,7 @@ export function PostAttackView(props) {
     defender = playerTwo;
   }
 
-  let header = 'Click on any empty attack grid to end turn.';
+  let header = <h2>Click on any empty attack grid to end turn.</h2>;
 
   let click = () => {
     endHoldScreen();
@@ -42,20 +42,20 @@ export function PostAttackView(props) {
     }
   };
 
-  if (defender.loser) {
-    click = () => alert(`${defender.name} is a loooooooser`);
-    header = <GameOverHeader name={attacker.name} />;
+  if (attacker.loser || defender.loser) {
+    const loser = attacker.loser ? attacker.name : defender.name;
+    const winner = attacker.loser ? defender.name : attacker.name;
+    click = () => alert(`${loser} is a loooooooser`);
+    header = <GameOverHeader name={winner} />;
   }
 
   return (
-    <div className="attack-board" onClick={click}>
-      <h2>{header}</h2>
+    <div className="post-attack-view" onClick={click}>
+      {header}
       <div className="attack-board">
-        <h3>Attack Board</h3>
         <AttackBoard board={defender.board} receiveAttack={() => null} />
       </div>
       <div className="own-board">
-        <h3>Your Board</h3>
         <OwnBoard board={attacker.board} />
       </div>
     </div>

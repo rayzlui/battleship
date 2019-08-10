@@ -13,6 +13,7 @@ export function AttackBoard(props) {
 
     row.push(
       <AttackBoardGrid
+        key={`${gridNum} grid attack`}
         grid={gridValues}
         receiveAttack={() => receiveAttack(gridNum)}
       />,
@@ -25,13 +26,16 @@ export function AttackBoard(props) {
   }
 
   return (
-    <div className="attackboard" style={{ backgroundColor: 'black' }}>
-      <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>{display}</ul>
-    </div>
+    <>
+      <h3>Attack Board</h3>
+      <div className="attackboard" style={{ backgroundColor: 'black' }}>
+        <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>{display}</ul>
+      </div>
+    </>
   );
 }
 
 AttackBoard.propTypes = {
   receiveAttack: PropTypes.func,
-  board: PropTypes.object,
+  board: PropTypes.array,
 };
