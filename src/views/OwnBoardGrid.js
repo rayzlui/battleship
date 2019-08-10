@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 export function OwnBoardGrid(props) {
-  const { grid, id } = props;
+  const { grid } = props;
 
   const { ship } = grid;
   let color,
@@ -35,7 +35,7 @@ export function OwnBoardGrid(props) {
 
   return (
     <div
-      className={'grid' + id}
+      className={`grid ${color}`}
       style={{
         backgroundColor: color,
         height: '60px',
@@ -54,6 +54,6 @@ export function OwnBoardGrid(props) {
 }
 
 OwnBoardGrid.propTypes = {
-  grid: PropTypes.array,
-  id: PropTypes.number,
+  grid: PropTypes.object,
+  id: PropTypes.string,
 };

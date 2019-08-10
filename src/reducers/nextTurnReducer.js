@@ -1,7 +1,7 @@
 import {
   END_HOLD_SCREEN,
-  PLAYER_TWO_PLACED,
   BEGIN_ATTACK,
+  PLACED_SHIPS_COMPLETED,
 } from '../actions/actionTypes';
 
 export function nextTurnReducer(state = false, actions) {
@@ -9,7 +9,7 @@ export function nextTurnReducer(state = false, actions) {
     case BEGIN_ATTACK:
       return false;
     case END_HOLD_SCREEN:
-    case PLAYER_TWO_PLACED:
+    case PLACED_SHIPS_COMPLETED:
       return true;
     default:
       return state;

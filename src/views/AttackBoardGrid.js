@@ -6,8 +6,7 @@ export function AttackBoardGrid(props) {
 
   const { ship, hit } = grid;
   let click,
-    color,
-    shipImage = null;
+    color = null;
 
   if (hit === false) {
     click = receiveAttack;
@@ -31,9 +30,7 @@ export function AttackBoardGrid(props) {
         verticalAlign: 'top',
       }}
       onClick={click}
-    >
-      {shipImage}
-    </div>
+    ></div>
   );
 }
 

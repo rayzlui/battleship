@@ -1,5 +1,11 @@
-import { horizontalCheck, verticalCheck } from './placeShipChecks';
+import {
+  horizontalCheck,
+  verticalCheck,
+  tryAndPlaceShip,
+} from './placeShipChecks';
 import { createBoard } from '../classes/boardObject';
+import { setupPlayers } from '../helperFunctions/playerSetup';
+import { createShip } from './shipSetup';
 
 describe('horizontalCheck', () => {
   describe('not ship at location', () => {
@@ -84,5 +90,53 @@ describe('verticalCheck', () => {
       });
       expect(check).toBe(false);
     });
+  });
+});
+
+describe('tryAndPlaceShip', () => {
+  describe('legal place', () => {
+    const mockPlacementFunction = jest.fn(options => {
+      return options;
+    });
+    const mockPlayer = setupPlayers('1');
+    const mockChangeShip = jest.fn(value => {
+      return value;
+    });
+    const mockSelectedShip = createShip('battleship');
+    tryAndPlaceShip({
+      changeShip: mockChangeShip,
+      player: mockPlayer,
+      placementFunction: mockPlacementFunction,
+      isVertical: true,
+      target: 4,
+      selectedShip: mockSelectedShip,
+    });
+    expect(mockPlacementFunction).toHaveBeenCalledWith({
+      spot: 4,
+      vertical: true,
+      ship: mockSelectedShip,
+    });
+    expect(mockChangeShip).toHaveBeenCalledWith(null);
+  });
+  describe('illegal place', () => {
+    const mockPlacementFunction = jest.fn(options => {
+      return options;
+    });
+    const mockPlayer = setupPlayers('1');
+    mockPlayer.board[2].ship = createShip('cruiser');
+    const mockChangeShip = jest.fn(value => {
+      return value;
+    });
+    const mockSelectedShip = createShip('battleship');
+    tryAndPlaceShip({
+      changeShip: mockChangeShip,
+      player: mockPlayer,
+      placementFunction: mockPlacementFunction,
+      isVertical: false,
+      target: 1,
+      selectedShip: mockSelectedShip,
+    });
+    expect(mockPlacementFunction).not.toHaveBeenCalled();
+    expect(mockChangeShip).toHaveBeenCalledWith(null);
   });
 });

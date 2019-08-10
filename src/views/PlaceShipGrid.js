@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 export function PlaceShipGrid(props) {
-  const { selectGridForShip, grid, id } = props;
+  const { selectGridForShip, grid } = props;
 
   const { ship } = grid;
   let click,
@@ -14,12 +14,12 @@ export function PlaceShipGrid(props) {
     color = 'blue';
     shipImage = null;
   } else {
-    const { image } = ship;
+    const { name, image } = ship;
     color = 'grey';
     shipImage = (
       <img
         src={image}
-        alt={image}
+        alt={name}
         style={{ height: 30, width: 30, display: 'inline-block', margin: 0 }}
       />
     );
@@ -27,7 +27,7 @@ export function PlaceShipGrid(props) {
 
   return (
     <div
-      className={'grid' + id}
+      className={`grid ${color}`}
       style={{
         backgroundColor: color,
         height: '60px',

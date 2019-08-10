@@ -23,9 +23,13 @@ export function OwnBoard(props) {
   }
 
   return (
-    <div className="gameboard" style={{ backgroundColor: 'black' }}>
-      <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>{display}</ul>
-    </div>
+    <>
+      <h3>Your Board</h3>
+      <div className="gameboard" style={{ backgroundColor: 'black' }}>
+        <h3>Your Board</h3>
+        <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>{display}</ul>
+      </div>
+    </>
   );
 }
 

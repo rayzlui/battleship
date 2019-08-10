@@ -9,7 +9,7 @@ import PropTypes from 'prop-types';
 export function ShipOptionsDisplay(props) {
   const { player, changeShip } = props;
   const ships = SHIP_OPTIONS.slice();
-  return ships.reduce((acc, curr) => {
+  const shipImages = ships.reduce((acc, curr) => {
     if (player.ships.find(x => x.name === curr) === undefined) {
       acc.push(
         <img
@@ -26,6 +26,7 @@ export function ShipOptionsDisplay(props) {
     }
     return acc;
   }, []);
+  return <>{shipImages}</>
 }
 
 ShipOptionsDisplay.propTypes = {

@@ -149,23 +149,37 @@ describe('playerOneReducer', () => {
         );
       });
     });
-  });
-
-  describe('PLAYER_ONE_PLACED', () => {
-    it('should handle action', () => {
-      const action = { type: PLAYER_ONE_PLACED };
-      const initialState = {
-        ships: [],
-        board: [],
-        shipsPlaced: false,
-        turn: false,
-      };
+    describe('should handle action', () => {
+      const initialState = setupPlayers('1');
+      initialState.ships.push(
+        createShip('cruiser'),
+        createShip('battleship'),
+        createShip('submarine'),
+        createShip('carrier'),
+      );
+      const mockShip = createShip('destroyer');
+      const mockShipPlace = { ship: mockShip, spot: 0, vertical: true };
+      const action = { type: PLACE_SHIP_ONE, shipPlace: mockShipPlace };
       const reducer = playerOneReducer(initialState, action);
-      expect(reducer).toEqual({
-        ships: [],
-        board: [],
-        shipsPlaced: true,
-        turn: true,
+      it('should place ship correctly', () => {
+        expect(initialState.ships).toHaveLength(4);
+        expect(reducer.ships).toHaveLength(5);
+        expect(reducer.ships[4]).toEqual(mockShip);
+        expect(reducer.board[0].ship).toEqual(mockShip);
+        expect(reducer.board[9].ship).toEqual(mockShip);
+        expect(reducer.board[18].ship).toEqual(mockShip);
+      });
+      it('should not place ship anywhere else', () => {
+        let nullGrids = reducer.board.filter(x => x.ship === null);
+        expect(nullGrids.length).toEqual(
+          reducer.board.length - reducer.ships[4].length,
+        );
+      });
+      it('should handle shipPlaced', () => {
+        expect(initialState.shipsPlaced).toBe(false);
+        expect(initialState.turn).toBe(false);
+        expect(reducer.shipsPlaced).toBe(true);
+        expect(reducer.turn).toBe(true);
       });
     });
   });

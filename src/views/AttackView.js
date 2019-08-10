@@ -17,7 +17,7 @@ export function AttackView(props) {
 
   if (!gameStart || !placedShips || nextTurn || postAttack) return null;
 
-  let header = playerTwo.name + ' turn';
+  let header = `${playerTwo.name} Turn`;
   let attacker = playerTwo;
   let defender = playerOne;
   let click = target => attackPlayerOne(target);
@@ -26,18 +26,16 @@ export function AttackView(props) {
     attacker = playerOne;
     defender = playerTwo;
     click = target => attackPlayerTwo(target);
-    header = playerOne.name + ' turn';
+    header = `${playerOne.name} Turn`;
   }
 
   display = (
     <div className="attack-board">
-      <h2>{header}</h2>
-      <div className="attack-board">
-        <h3>Attack Board</h3>
+      <h2 className={'header attack-view'}>{header}</h2>
+      <div className="attackboard">
         <AttackBoard board={defender.board} receiveAttack={click} />
       </div>
       <div className="own-board">
-        <h3>Your Board</h3>
         <OwnBoard board={attacker.board} />
       </div>
     </div>

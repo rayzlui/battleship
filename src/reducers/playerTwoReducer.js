@@ -5,7 +5,6 @@ import {
   START_ONE_PLAYER,
   RECEIVE_ATTACK_TWO,
   PLACE_SHIP_TWO,
-  PLAYER_TWO_PLACED,
   RECEIVE_ATTACK_ONE,
   START_ATTACK_ONE,
   UPDATE_ATTACK_OPTIONS,
@@ -63,10 +62,9 @@ export function playerTwoReducer(state = setupPlayers('2'), actions) {
         copyBoard[spot + x].ship = ship;
       }
       copyShips.push(ship);
-      return Object.assign({}, state, changes);
-
-    case PLAYER_TWO_PLACED:
-      changes = { shipsPlaced: true };
+      if (copyShips.length === 5) {
+        changes['shipsPlaced'] = true;
+      }
       return Object.assign({}, state, changes);
 
     case START_ATTACK_ONE:
