@@ -1,0 +1,190 @@
+.game__container {
+  display: inline-block;
+  position: absolute;
+  height: 100vh;
+  width: 100vw;
+}
+
+.background-image{
+  opacity: 0.8;
+  height: 100vh;
+  width: 100vw;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: -100;
+}
+
+.game__title {
+  width: 100vw;
+  height: 8vh;
+  text-align: center;
+  margin: 0px;
+  padding: 0px;
+}
+
+.game__display {
+  height: 80vh;
+  text-align: center;
+
+}
+
+button {
+  font-size: 3vh;
+  padding: 1vh;
+}
+
+.ownboard__head{
+  color: black;
+}
+
+.attack__screen, .ownboard__screen {
+  width: 40vw;
+  position: fixed;
+  padding-bottom: 2vw;
+  background-color: rgba($color: white, $alpha: 0.2);
+  height: 65vh;
+  top: 20vh;
+}
+
+.place__ships__info{
+  height: 4vw;
+  width: 100vw;
+  font-size: 2vh;
+  margin: 0;
+  padding: 0;
+}
+
+.attack__screen{
+  left: 2vw;
+  width: 44vw;
+}
+.ownboard__screen{
+  right: 2vw;
+  width: 44vw;
+}
+
+.start__game {
+  position: fixed;
+  width: 20vw;
+  height: 20vh;
+  left:40vw;
+  top: 40vh;
+
+}
+
+.own__board{
+  width: 50vw;
+  right: 0;
+}
+
+ul{
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+.title {
+  margin: 0px;
+  margin-top: 2vh;
+}
+.ship__options{
+  position: relative;
+  height: 10vh;
+  width: 50%;  
+  opacity: 0.7;
+}
+.ship__desc{
+  visibility: hidden;
+  background-color: black;
+  color: white;
+  width: 50%;
+  border-radius: 2px;
+  margin: 0;
+  position: relative;
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.ship__view:hover{
+  
+  .ship__desc{
+    visibility: visible;
+  }
+  img {
+    opacity: 1;
+  }
+}
+
+button:hover{
+  background-color: blue;
+}
+
+.place__ship__board, .place__ship__options {
+  position: fixed;
+  top: 20vh;
+  width:45vw;
+  height: 65vh;
+  background-color: rgba($color: white, $alpha: 0.2)
+}
+.place__ship__board{
+  left: 5vw;
+}
+
+.place__ship__options{
+  right: 5vw;
+  width: 30vw;
+}
+
+li {
+  width: 44vw;
+  height: 44/9+vh;
+}
+
+@media screen and (max-width: 985px) {
+  li {
+    height: 100/44+vw;
+    width: 44+vw;
+  }
+  li .grid {
+    height: 60/20+vw;
+    width: 60/20+vw;;
+  }
+}
+
+.grid {
+
+  height: 55/9+vh;
+  width: 55/9+vh;
+  border: 1px solid black;
+  display: inline-block;
+  vertical-align: top;
+
+  padding: 0;
+  margin: 0;
+
+  img{
+    height: 100%;
+    width: 100%;
+  }
+}
+
+.blue {
+  background-color: blue;
+}
+
+.green {
+  background-color: green;
+}
+
+.red {
+  background-color: red;
+}
+
+.grey {
+  background-color: grey;
+}
+
+.white {
+  background-color: whitesmoke;
+}
