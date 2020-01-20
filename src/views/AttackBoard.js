@@ -26,12 +26,12 @@ export function AttackBoard(props) {
   }
 
   return (
-    <>
+    <section className="attack__screen">
       <h3>Attack Board</h3>
-      <div className="attackboard" style={{ backgroundColor: 'black' }}>
-        <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>{display}</ul>
-      </div>
-    </>
+      <section className="attack__board">
+        <ul>{display}</ul>
+      </section>
+    </section>
   );
 }
 

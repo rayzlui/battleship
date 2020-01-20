@@ -17,39 +17,14 @@ export function OwnBoardGrid(props) {
     } else {
       const { image, name } = ship;
       color = 'grey';
-      shipImage = (
-        <img
-          className="grid-ship-image"
-          src={image}
-          alt={name}
-          style={{
-            height: 30,
-            width: 30,
-            display: 'inline-block',
-            margin: 0,
-          }}
-        />
-      );
+      shipImage = <img className="grid-ship-image" src={image} alt={name} />;
     }
   }
 
   return (
-    <div
-      className={`grid ${color}`}
-      style={{
-        backgroundColor: color,
-        height: '60px',
-        width: '60px',
-        borderWidth: '5px',
-        borderColor: 'black',
-        display: 'inline-block',
-        margin: 1,
-        verticalAlign: 'top',
-      }}
-      onClick={click}
-    >
+    <section className={`grid ${color}`} onClick={click}>
       {shipImage}
-    </div>
+    </section>
   );
 }
 

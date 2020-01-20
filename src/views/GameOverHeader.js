@@ -4,10 +4,10 @@ import PropTypes from 'prop-types';
 export function GameOverHeader(props) {
   const { name } = props;
   return (
-    <div className="game-over">
+    <section className="game-over">
       {alert(`Game Over! ${name} Wins!`)}
       <h1 className="game-over-banner">{`Game Over! ${name} Wins!`}</h1>
-    </div>
+    </section>
   );
 }
 

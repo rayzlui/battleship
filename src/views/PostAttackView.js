@@ -50,15 +50,12 @@ export function PostAttackView(props) {
   }
 
   return (
-    <div className="post-attack-view" onClick={click}>
+    <section className="post-attack-view" onClick={click}>
       {header}
-      <div className="attack-board">
-        <AttackBoard board={defender.board} receiveAttack={() => null} />
-      </div>
-      <div className="own-board">
-        <OwnBoard board={attacker.board} />
-      </div>
-    </div>
+      <AttackBoard board={defender.board} receiveAttack={() => null} />
+
+      <OwnBoard board={attacker.board} />
+    </section>
   );
 }
 

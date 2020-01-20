@@ -5,17 +5,15 @@ export function IntroPage(props) {
   const { startOnePlayer, startTwoPlayer, gameStart } = props;
   if (gameStart) return null;
   return (
-    <div
-      className="start-game"
-      style={{ textAlign: 'center', display: 'inline-block' }}
-    >
+    <section className="start__game">
+      <h4>Please Select:</h4>
       <button className="oneplayerstart" onClick={startOnePlayer}>
         One Player
       </button>
       <button className="twoplayerstart" onClick={startTwoPlayer}>
         Two Player
       </button>
-    </div>
+    </section>
   );
 }
 

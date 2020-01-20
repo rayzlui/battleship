@@ -24,11 +24,7 @@ export function PlaceShipBoard(props) {
     }
   }
 
-  return (
-    <div className="gameboard" style={{ backgroundColor: 'black' }}>
-      <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>{display}</ul>
-    </div>
-  );
+  return <ul>{display}</ul>;
 }
 
 PlaceShipBoard.propTypes = {

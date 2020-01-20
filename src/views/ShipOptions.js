@@ -12,21 +12,25 @@ export function ShipOptionsDisplay(props) {
   const shipImages = ships.reduce((acc, curr) => {
     if (player.ships.find(x => x.name === curr) === undefined) {
       acc.push(
-        <img
-          key={curr}
-          className={curr}
-          src={IMAGE_URLS[curr]}
-          alt={curr}
-          onClick={() => {
-            const newship = createShip(curr);
-            changeShip(newship);
-          }}
-        />,
+        <section className={'ship__view'}>
+          <p className={'ship__desc'}>{`${curr}`}</p>
+          <img
+            key={curr}
+            className={`ship__options ${curr.toUpperCase()}`}
+            src={IMAGE_URLS[curr]}
+            alt={curr}
+            onClick={() => {
+              const newship = createShip(curr);
+              changeShip(newship);
+            }}
+          />
+          ,
+        </section>,
       );
     }
     return acc;
   }, []);
-  return <>{shipImages}</>
+  return shipImages;
 }
 
 ShipOptionsDisplay.propTypes = {

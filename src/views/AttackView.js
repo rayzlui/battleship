@@ -32,12 +32,8 @@ export function AttackView(props) {
   display = (
     <div className="attack-board">
       <h2 className={'header attack-view'}>{header}</h2>
-      <div className="attackboard">
-        <AttackBoard board={defender.board} receiveAttack={click} />
-      </div>
-      <div className="own-board">
-        <OwnBoard board={attacker.board} />
-      </div>
+      <AttackBoard board={defender.board} receiveAttack={click} />
+      <OwnBoard board={attacker.board} />
     </div>
   );
 

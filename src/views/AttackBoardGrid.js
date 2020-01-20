@@ -7,7 +7,6 @@ export function AttackBoardGrid(props) {
   const { ship, hit } = grid;
   let click,
     color = null;
-
   if (hit === false) {
     click = receiveAttack;
     color = 'blue';
@@ -16,22 +15,7 @@ export function AttackBoardGrid(props) {
     color = ship === null ? 'green' : 'red';
   }
 
-  return (
-    <div
-      className={`grid ${color}`}
-      style={{
-        backgroundColor: color,
-        height: '60px',
-        width: '60px',
-        borderWidth: '5px',
-        borderColor: 'black',
-        display: 'inline-block',
-        margin: 1,
-        verticalAlign: 'top',
-      }}
-      onClick={click}
-    ></div>
-  );
+  return <section className={`grid ${color}`} onClick={click}></section>;
 }
 
 AttackBoardGrid.propTypes = {

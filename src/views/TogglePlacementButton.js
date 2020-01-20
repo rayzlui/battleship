@@ -11,7 +11,7 @@ export function TogglePlacement(props) {
   }
   return (
     <button
-      className="vertical-button"
+      className="vertical__button"
       onClick={() => flipDirection(!isVertical)}
     >
       {buttonDescrption}

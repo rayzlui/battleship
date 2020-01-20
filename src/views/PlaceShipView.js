@@ -45,20 +45,23 @@ export function PlaceShipView(props) {
     selectedShipHeader = `You have selected ${selectedShip.name}`;
   }
   return (
-    <div className="place-ships-board" style={{ display: 'inline' }}>
-      <h2>{player.name + ' Place Your Ships'}</h2>
-      <h4>{selectedShipHeader}</h4>
-      <div className="place-ship-board">
+    <section className="place-ships-board">
+      <section className="place__ships__info">
+        <h4>{player.name + ' Place Your Ships'}</h4>
+        <p>{selectedShipHeader}</p>
+      </section>
+      <section className="place__ship__board">
+        <h3>Place Your Ships</h3>
         <PlaceShipBoard board={player.board} selectGridForShip={click} />
-      </div>
-      <div className="place-ship-options">
+      </section>
+      <section className="place__ship__options">
+        <ShipOptionsDisplay changeShip={changeShip} player={player} />
         <TogglePlacement
           isVertical={isVertical}
           flipDirection={flipDirection}
         />
-        <ShipOptionsDisplay changeShip={changeShip} player={player} />
-      </div>
-    </div>
+      </section>
+    </section>
   );
 }
 
